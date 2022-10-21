@@ -1,0 +1,12 @@
+const String BASE_URL = "http://care-engg.com";
+const String USER_ENDPOINT = "/api/user/";
+const String PROFILE_ENDPOINT = "/api/profile/";
+const String PASSWORD_ENDPOINT = "/api/password/";
+const String COMPANY_ENDPOINT = "/api/company/";
+const String REFERRAL_ENDPOINT = "/api/referral/";
+const String HOME_ENDPOINT = "/api/home/";
+const String ROOM_ENDPOINT = "/api/room/";
+const String DEVICE_ENDPOINT = "/api/device/";
+const String DEVICE_SPECS_ENDPOINT = "/api/specs/";
+const String NAMES_ENDPOINT = "/api/names/";
+const String MEMBERS_ENDPOINT = "/api/members/";

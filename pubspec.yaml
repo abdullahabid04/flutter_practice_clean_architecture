@@ -1,0 +1,59 @@
+name: practice_clean_architecture
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get_it:
+  bloc:
+  flutter_bloc:
+  equatable:
+  dartz:
+  data_connection_checker:
+  internet_connection_checker:
+  http:
+  shared_preferences:
+  cupertino_icons:
+  sqflite:
+  path_provider:
+  splashscreen:
+  flutter_datetime_picker:
+  share:
+  flutter_phone_direct_caller:
+  is_first_run:
+  image_picker:
+  flutter_blue:
+  connectivity_plus:
+  network_info_plus:
+  permission_handler:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  mockito:
+  flutter_lints:
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: fonts/Raleway-Regular.ttf
+        - asset: fonts/Raleway-Italic.ttf
+          style: italic
+    - family: RobotoMono
+      fonts:
+        - asset: fonts/RobotoMono-Regular.ttf
+        - asset: fonts/RobotoMono-Bold.ttf
+          weight: 700
