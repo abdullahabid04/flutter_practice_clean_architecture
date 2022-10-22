@@ -9,3 +9,5 @@ class InvalidCredentialsException implements Exception {}
 class UserNotCreatedException implements Exception {}
 
 class UserNotVerifiedException implements Exception {}
+
+class NoInternetConnectionException implements Exception {}

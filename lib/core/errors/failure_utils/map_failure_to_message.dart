@@ -15,6 +15,8 @@ String mapFailureToMessage(Failure failure) {
       return USER_NOT_CREATED_MESSAGE;
     case UserNotVerifiedFailure:
       return USER_NOT_VERIFIED_MESSAGE;
+    case NoInternetConnectionFailure:
+      return NO_INTERNET_CONNECTION_MESSAGE;
     default:
       return INVALID_ERROR_MESSAGE;
   }

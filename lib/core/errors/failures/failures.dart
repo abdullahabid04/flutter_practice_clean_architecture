@@ -16,3 +16,5 @@ class InvalidCredentialsFailure extends Failure {}
 class UserNotCreatedFailure extends Failure {}
 
 class UserNotVerifiedFailure extends Failure {}
+
+class NoInternetConnectionFailure extends Failure {}
