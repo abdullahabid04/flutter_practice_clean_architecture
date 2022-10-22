@@ -14,7 +14,7 @@ class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
     on<GetUserLoginEvent>((event, emit) async {
       emit(const UserLoginLoadingState());
       final login = await getUserLogin(
-        Params(
+        UserLoginParams(
           event.mobileNo,
           event.password,
         ),

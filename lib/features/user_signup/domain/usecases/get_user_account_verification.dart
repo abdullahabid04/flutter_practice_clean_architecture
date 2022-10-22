@@ -6,13 +6,13 @@ import 'package:practice_clean_architecture/features/user_signup/domain/entities
 import 'package:practice_clean_architecture/features/user_signup/domain/repositories/get_user_registration_repository.dart';
 
 class GetUserAccountVerification
-    implements UseCase<UserAccountVerification, Params> {
+    implements UseCase<UserAccountVerification, UserAccountVerifyParams> {
   GetUserRegistrationRepository getUserRegistrationRepository;
 
   GetUserAccountVerification(this.getUserRegistrationRepository);
 
   @override
-  Future<Either<Failure, UserAccountVerification>> call(Params params) async {
+  Future<Either<Failure, UserAccountVerification>> call(UserAccountVerifyParams params) async {
     return await getUserRegistrationRepository.getUserAccountVerification(
       params.userId,
       params.verificationCode,
@@ -20,11 +20,11 @@ class GetUserAccountVerification
   }
 }
 
-class Params extends Equatable {
+class UserAccountVerifyParams extends Equatable {
   final String userId;
   final String verificationCode;
 
-  const Params(
+  const UserAccountVerifyParams(
     this.userId,
     this.verificationCode,
   );

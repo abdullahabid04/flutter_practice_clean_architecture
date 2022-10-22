@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice_clean_architecture/core/errors/failure_utils/map_failure_to_message.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_account_verification.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_sign_up.dart';
 import 'user_registration_state.dart';
@@ -17,7 +18,48 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
         getUserSignUp = getUserSignUp!,
         getUserAccountVerification = getUserAccountVerification!,
         super(const UserSignUpInitialState()) {
-    on<CreateUserAccount>((event, emit) {});
-    on<VerifyUserAccount>((event, emit) {});
+    on<CreateUserAccount>((event, emit) async {
+      emit(const UserSignUpLoadingState());
+      final userSignUp = await getUserSignUp(
+        UserSignUpParams(
+          event.userName,
+          event.eMail,
+          event.password,
+          event.address,
+          event.city,
+          event.mobileNo,
+        ),
+      );
+      userSignUp.fold(
+        (failure) => emit(
+          UserSignUpErrorState(
+            title: mapFailureToMessage(failure)[0],
+            message: mapFailureToMessage(failure)[1],
+          ),
+        ),
+        (success) => emit(
+          UserSignUpAccountCreatedState(
+            userSignUp: success,
+          ),
+        ),
+      );
+    });
+    on<VerifyUserAccount>((event, emit) async {
+      emit(const UserSignUpLoadingState());
+      final userAccountVerify = await getUserAccountVerification(
+        UserAccountVerifyParams(
+          event.userId,
+          event.verificationCode,
+        ),
+      );
+      userAccountVerify.fold(
+        (failure) => emit(
+          const UserSignUpAccountNotVerifiedState(),
+        ),
+        (success) => emit(
+          const UserSignUpAccountVerifiedState(),
+        ),
+      );
+    });
   }
 }

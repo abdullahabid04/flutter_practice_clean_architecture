@@ -5,13 +5,13 @@ import 'package:practice_clean_architecture/core/usecase/usecase.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/entities/user_signup.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/repositories/get_user_registration_repository.dart';
 
-class GetUserSignUp implements UseCase<UserSignUp, Params> {
+class GetUserSignUp implements UseCase<UserSignUp, UserSignUpParams> {
   final GetUserRegistrationRepository getUserRegistrationRepository;
 
   GetUserSignUp(this.getUserRegistrationRepository);
 
   @override
-  Future<Either<Failure, UserSignUp>> call(Params params) async {
+  Future<Either<Failure, UserSignUp>> call(UserSignUpParams params) async {
     return await getUserRegistrationRepository.getUserSignUp(
       params.userName,
       params.eMail,
@@ -23,7 +23,7 @@ class GetUserSignUp implements UseCase<UserSignUp, Params> {
   }
 }
 
-class Params extends Equatable {
+class UserSignUpParams extends Equatable {
   final String userName;
   final String eMail;
   final String password;
@@ -31,7 +31,7 @@ class Params extends Equatable {
   final String city;
   final String mobileNo;
 
-  const Params(
+  const UserSignUpParams(
     this.userName,
     this.eMail,
     this.password,

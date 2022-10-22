@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/validators/all_validators.dart';
 import '/utils/change_focus_of_field.dart';
-import '/utils/show_progress.dart';
 import '/constants/colors.dart';
 import '/utils/internet_access.dart';
 import '/utils/show_dialog.dart';
@@ -125,7 +124,6 @@ class _LoginFormState extends State<LoginForm> {
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: (val) {
                           _passwordNode.unfocus();
-                          // _submit();
                         },
                         decoration: InputDecoration(
                           hintText: "Password",
@@ -163,17 +161,15 @@ class _LoginFormState extends State<LoginForm> {
           height: 15.0,
         ),
         Center(
-          child: _isLoadingValue
-              ? ShowProgress()
-              : Container(
-                  child: ElevatedButton(
-                    onPressed: () => _submit(),
-                    child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      child: const Text("LOGIN"),
-                    ),
-                  ),
-                ),
+          child: Container(
+            child: ElevatedButton(
+              onPressed: () => _submit(),
+              child: Container(
+                margin: const EdgeInsets.all(15.0),
+                child: const Text("LOGIN"),
+              ),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
@@ -202,6 +198,6 @@ class _LoginFormState extends State<LoginForm> {
           _password,
         ),
       );
-    } else {}
+    }
   }
 }

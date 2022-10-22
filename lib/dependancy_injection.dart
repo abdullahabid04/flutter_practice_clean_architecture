@@ -7,11 +7,18 @@ import 'package:practice_clean_architecture/features/user_login/data/repositorie
 import 'package:practice_clean_architecture/features/user_login/domain/repositories/user_login_repository.dart';
 import 'package:practice_clean_architecture/features/user_login/domain/usecases/get_user_login.dart';
 import 'package:practice_clean_architecture/features/user_login/presentation/bloc/bloc.dart';
+import 'package:practice_clean_architecture/features/user_signup/data/datasources/user_signup_remote_datasource.dart';
+import 'package:practice_clean_architecture/features/user_signup/data/repositories/get_user_registration_repository_implemenation.dart';
+import 'package:practice_clean_architecture/features/user_signup/domain/repositories/get_user_registration_repository.dart';
+import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_account_verification.dart';
+import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_sign_up.dart';
+import 'package:practice_clean_architecture/features/user_signup/presentation/bloc/bloc.dart';
 import 'package:practice_clean_architecture/userpreferances/local_user_data.dart';
 
 final getItServiceLocator = GetIt.instance;
 
 Future<void> init() async {
+  // User Login Dependencies
   getItServiceLocator.registerFactory(
     () => UserLoginBloc(
       getUserLogin: getItServiceLocator(),
@@ -47,5 +54,32 @@ Future<void> init() async {
   );
   getItServiceLocator.registerLazySingleton(
     () => InternetConnectionChecker(),
+  );
+  //  User SignUp Dependencies
+  getItServiceLocator.registerFactory(
+    () => UserSignUpBloc(
+      getUserSignUp: getItServiceLocator(),
+      getUserAccountVerification: getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton(
+    () => GetUserSignUp(
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton(
+    () => GetUserAccountVerification(
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton<GetUserRegistrationRepository>(
+    () => GetUserRegistrationRepositoryImplementation(
+      userSignUpRemoteDataSource: getItServiceLocator(),
+      userAccountVerificationRemoteDataSource: getItServiceLocator(),
+      networkInfo: getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton<UserSignUpRemoteDataSource>(
+    () => UserSignUpRemoteDataSourceImplementation(),
   );
 }

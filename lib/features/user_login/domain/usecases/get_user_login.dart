@@ -5,23 +5,23 @@ import 'package:practice_clean_architecture/core/usecase/usecase.dart';
 import 'package:practice_clean_architecture/features/user_login/domain/entities/user_login.dart';
 import 'package:practice_clean_architecture/features/user_login/domain/repositories/user_login_repository.dart';
 
-class GetUserLogin implements UseCase<UserLogin, Params> {
+class GetUserLogin implements UseCase<UserLogin, UserLoginParams> {
   final UserLoginRepository userLoginRepository;
 
   GetUserLogin(this.userLoginRepository);
 
   @override
-  Future<Either<Failure, UserLogin>> call(Params params) async {
+  Future<Either<Failure, UserLogin>> call(UserLoginParams params) async {
     return await userLoginRepository.getUserLogin(params.mobileNo, params.password);
   }
 
 }
 
-class Params extends Equatable {
+class UserLoginParams extends Equatable {
   final String mobileNo;
   final String password;
 
-  const Params(this.mobileNo, this.password);
+  const UserLoginParams(this.mobileNo, this.password);
 
   @override
   List<Object?> get props => [mobileNo, password];
