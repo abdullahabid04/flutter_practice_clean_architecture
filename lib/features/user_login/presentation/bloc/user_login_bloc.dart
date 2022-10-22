@@ -22,7 +22,8 @@ class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
       login.fold(
         (failure) => emit(
           UserLoginErrorState(
-            message: mapFailureToMessage(failure),
+            title: mapFailureToMessage(failure)[0],
+            message: mapFailureToMessage(failure)[1],
           ),
         ),
         (success) => emit(

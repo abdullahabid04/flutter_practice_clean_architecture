@@ -36,14 +36,17 @@ class UserLoginLoadedState extends UserLoginState {
 
 @immutable
 class UserLoginErrorState extends UserLoginState {
+  final String title;
   final String message;
 
   const UserLoginErrorState({
+    required this.title,
     required this.message,
   });
 
   @override
   List<Object> get props => [
+        title,
         message,
       ];
 }
