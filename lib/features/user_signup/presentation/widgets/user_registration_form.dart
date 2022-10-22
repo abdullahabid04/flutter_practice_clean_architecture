@@ -245,7 +245,7 @@ class _UserRegisterFormState extends State<UserRegisterForm> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       color: kHAutoBlue300,
-                      onPressed: () => _submit(),
+                      onPressed: () => _createUserAccount(),
                       child: Container(
                         margin: const EdgeInsets.all(10.0),
                         child: const Text(
@@ -281,7 +281,7 @@ class _UserRegisterFormState extends State<UserRegisterForm> {
     );
   }
 
-  void _submit() async {
+  void _createUserAccount() async {
     final form = _signupFormKey.currentState;
     if (form!.validate()) {
       form.save();

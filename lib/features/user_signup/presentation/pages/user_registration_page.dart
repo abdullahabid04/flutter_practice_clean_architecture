@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_clean_architecture/dependancy_injection.dart';
+import 'package:practice_clean_architecture/utils/show_progress.dart';
 
 import '../bloc/bloc.dart';
 import '../widgets/user_registration_form.dart';
@@ -22,6 +23,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
           "Sign Up",
         ),
       ),
+      body: _buildSignUpPage(context),
     );
   }
 
@@ -33,14 +35,16 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
           if (state is UserSignUpInitialState) {
             return UserRegisterForm();
           } else if (state is UserSignUpLoadingState) {
-            return UserRegisterForm();
+            return ShowProgress();
           } else if (state is UserSignUpAccountCreatedState) {
+            _verifyAccount(state.userSignUp.userId!, state.userSignUp.code!);
             return UserRegisterForm();
           } else if (state is UserSignUpAccountNotCreatedState) {
             return UserRegisterForm();
           } else if (state is UserSignUpErrorState) {
             return UserRegisterForm();
           } else if (state is UserSignUpAccountVerifiedState) {
+            Navigator.of(context).pop();
             return UserRegisterForm();
           } else if (state is UserSignUpAccountNotVerifiedState) {
             return UserRegisterForm();
@@ -48,6 +52,15 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
             return Container();
           }
         },
+      ),
+    );
+  }
+
+  void _verifyAccount(String userId, int code) {
+    BlocProvider.of<UserSignUpBloc>(context).add(
+      VerifyUserAccount(
+        userId,
+        code.toString(),
       ),
     );
   }

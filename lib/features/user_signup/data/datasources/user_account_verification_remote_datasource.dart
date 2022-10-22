@@ -20,7 +20,7 @@ class UserAccountVerificationRemoteDataSourceImplementation
       String userId, String verificationCode) async {
     try {
       return await _networkUtil.post(
-        USER_SIGNUP,
+        USER_VERIFY,
         body: {
           "user_id": userId,
           "verification_code": verificationCode,

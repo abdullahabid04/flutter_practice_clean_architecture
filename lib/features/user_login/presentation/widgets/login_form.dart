@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice_clean_architecture/features/user_signup/presentation/pages/user_registration_page.dart';
 import '/validators/all_validators.dart';
 import '/utils/change_focus_of_field.dart';
 import '/constants/colors.dart';
@@ -163,7 +164,7 @@ class _LoginFormState extends State<LoginForm> {
         Center(
           child: Container(
             child: ElevatedButton(
-              onPressed: () => _submit(),
+              onPressed: () => _loginUser(),
               child: Container(
                 margin: const EdgeInsets.all(15.0),
                 child: const Text("LOGIN"),
@@ -174,7 +175,11 @@ class _LoginFormState extends State<LoginForm> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: TextButton(
-            onPressed: () => {},
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => UserSignUpPage(),
+              ),
+            ),
             child: Text(
               'Don\'t have an account? Register',
               textScaleFactor: 1,
@@ -188,7 +193,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _submit() async {
+  void _loginUser() async {
     final form = _loginFormKey.currentState;
     if (form!.validate()) {
       form.save();
