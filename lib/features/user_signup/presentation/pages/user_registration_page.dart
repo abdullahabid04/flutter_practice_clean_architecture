@@ -32,6 +32,18 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
         builder: (context, state) {
           if (state is UserSignUpInitialState) {
             return UserRegisterForm();
+          } else if (state is UserSignUpLoadingState) {
+            return UserRegisterForm();
+          } else if (state is UserSignUpAccountCreatedState) {
+            return UserRegisterForm();
+          } else if (state is UserSignUpAccountNotCreatedState) {
+            return UserRegisterForm();
+          } else if (state is UserSignUpErrorState) {
+            return UserRegisterForm();
+          } else if (state is UserSignUpAccountVerifiedState) {
+            return UserRegisterForm();
+          } else if (state is UserSignUpAccountNotVerifiedState) {
+            return UserRegisterForm();
           } else {
             return Container();
           }
