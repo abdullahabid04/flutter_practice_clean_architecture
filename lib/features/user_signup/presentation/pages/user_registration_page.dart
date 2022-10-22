@@ -37,7 +37,6 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
           } else if (state is UserSignUpLoadingState) {
             return ShowProgress();
           } else if (state is UserSignUpAccountCreatedState) {
-            _verifyAccount(state.userSignUp.userId!, state.userSignUp.code!);
             return UserRegisterForm();
           } else if (state is UserSignUpAccountNotCreatedState) {
             return UserRegisterForm();
@@ -52,15 +51,6 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
             return Container();
           }
         },
-      ),
-    );
-  }
-
-  void _verifyAccount(String userId, int code) {
-    BlocProvider.of<UserSignUpBloc>(context).add(
-      VerifyUserAccount(
-        userId,
-        code.toString(),
       ),
     );
   }
