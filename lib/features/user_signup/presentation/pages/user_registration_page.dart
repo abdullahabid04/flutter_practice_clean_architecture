@@ -30,20 +30,22 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
   BlocProvider<UserSignUpBloc> _buildSignUpPage(BuildContext context) {
     return BlocProvider(
       create: (_) => getItServiceLocator<UserSignUpBloc>(),
-      child: BlocBuilder<UserSignUpBloc, UserSignUpState>(
+      child: BlocConsumer<UserSignUpBloc, UserSignUpState>(
+        listener: (context, state) {
+          if (state is UserSignUpAccountVerifiedState) {
+            Navigator.of(context).pop();
+          }
+        },
         builder: (context, state) {
           if (state is UserSignUpInitialState) {
             return UserRegisterForm();
           } else if (state is UserSignUpLoadingState) {
             return ShowProgress();
           } else if (state is UserSignUpAccountCreatedState) {
-            return UserRegisterForm();
+            return ShowProgress();
           } else if (state is UserSignUpAccountNotCreatedState) {
             return UserRegisterForm();
           } else if (state is UserSignUpErrorState) {
-            return UserRegisterForm();
-          } else if (state is UserSignUpAccountVerifiedState) {
-            Navigator.of(context).pop();
             return UserRegisterForm();
           } else if (state is UserSignUpAccountNotVerifiedState) {
             return UserRegisterForm();

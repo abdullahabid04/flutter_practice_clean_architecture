@@ -9,7 +9,9 @@ import '../../../../validators/all_validators.dart';
 import '../bloc/bloc.dart';
 
 class UserRegisterForm extends StatefulWidget {
-  const UserRegisterForm({Key? key}) : super(key: key);
+  const UserRegisterForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {

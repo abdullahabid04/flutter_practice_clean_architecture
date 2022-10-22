@@ -30,34 +30,38 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
           event.mobileNo,
         ),
       );
+      emit(UserSignUpAccountNotCreatedState());
       userSignUp.fold(
-          (failure) => emit(
-                UserSignUpErrorState(
-                  title: mapFailureToMessage(failure)[0],
-                  message: mapFailureToMessage(failure)[1],
-                ),
-              ), (success) async {
-        emit(
+        (failure) => emit(
+          UserSignUpErrorState(
+            title: mapFailureToMessage(failure)[0],
+            message: mapFailureToMessage(failure)[1],
+          ),
+        ),
+        (success) => emit(
           UserSignUpAccountCreatedState(
             userSignUp: success,
           ),
-        );
-        emit(const UserSignUpLoadingState());
-        final userAccountVerify = await getUserAccountVerification(
-          UserAccountVerifyParams(
-            success.userId!,
-            success.code!.toString(),
-          ),
-        );
-        userAccountVerify.fold(
-          (failure) => emit(
-            const UserSignUpAccountNotVerifiedState(),
-          ),
-          (success) => emit(
-            const UserSignUpAccountVerifiedState(),
-          ),
-        );
-      });
+        ),
+      );
+      Future.delayed(
+        const Duration(
+          milliseconds: 250,
+        ),
+      );
+      emit(UserSignUpLoadingState());
+      Future.delayed(
+        const Duration(
+          milliseconds: 250,
+        ),
+      );
+      emit(UserSignUpAccountNotVerifiedState());
+      Future.delayed(
+        const Duration(
+          milliseconds: 250,
+        ),
+      );
+      emit(UserSignUpAccountVerifiedState());
     });
   }
 }
