@@ -9,7 +9,7 @@ import 'package:practice_clean_architecture/features/user_login/domain/usecases/
 import 'package:practice_clean_architecture/features/user_login/presentation/bloc/bloc.dart';
 import 'package:practice_clean_architecture/features/user_signup/data/datasources/user_account_verification_remote_datasource.dart';
 import 'package:practice_clean_architecture/features/user_signup/data/datasources/user_signup_remote_datasource.dart';
-import 'package:practice_clean_architecture/features/user_signup/data/repositories/get_user_registration_repository_implemenation.dart';
+import 'package:practice_clean_architecture/features/user_signup/data/repositories/get_user_registration_repository_implementation.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/repositories/get_user_registration_repository.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_account_verification.dart';
 import 'package:practice_clean_architecture/features/user_signup/domain/usecases/get_user_sign_up.dart';
