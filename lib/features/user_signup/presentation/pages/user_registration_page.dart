@@ -34,15 +34,22 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
         listener: (context, state) {
           if (state is UserSignUpAccountVerifiedState) {
             Navigator.of(context).pop();
-          }
+          } else if (state is UserSignUpAccountCreatedState) {
+            BlocProvider.of<UserSignUpBloc>(context).add(
+              VerifyUserAccount(
+                state.userSignUp.userId!,
+                state.userSignUp.code.toString(),
+              ),
+            );
+          } else {}
         },
         builder: (context, state) {
           if (state is UserSignUpInitialState) {
             return UserRegisterForm();
           } else if (state is UserSignUpLoadingState) {
             return ShowProgress();
-          } else if (state is UserSignUpAccountCreatedState) {
-            return ShowProgress();
+            // } else if (state is UserSignUpAccountCreatedState) {
+            //   return ShowProgress();
           } else if (state is UserSignUpAccountNotCreatedState) {
             return UserRegisterForm();
           } else if (state is UserSignUpErrorState) {

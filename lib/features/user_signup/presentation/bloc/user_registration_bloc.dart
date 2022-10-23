@@ -44,24 +44,25 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
           ),
         ),
       );
-      Future.delayed(
-        const Duration(
-          milliseconds: 250,
-        ),
-      );
       emit(UserSignUpLoadingState());
-      Future.delayed(
-        const Duration(
-          milliseconds: 250,
+    });
+    on<VerifyUserAccount>((event, emit) async {
+      emit(UserSignUpLoadingState());
+      final userVerifyAccount = await getUserAccountVerification(
+        UserAccountVerifyParams(
+          event.userId,
+          event.verificationCode,
         ),
       );
       emit(UserSignUpAccountNotVerifiedState());
-      Future.delayed(
-        const Duration(
-          milliseconds: 250,
+      userVerifyAccount.fold(
+        (failure) => emit(
+          UserSignUpAccountNotVerifiedState(),
+        ),
+        (success) => emit(
+          UserSignUpAccountVerifiedState(),
         ),
       );
-      emit(UserSignUpAccountVerifiedState());
     });
   }
 }

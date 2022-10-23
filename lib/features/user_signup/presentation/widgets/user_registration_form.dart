@@ -292,9 +292,9 @@ class _UserRegisterFormState extends State<UserRegisterForm> {
           _name,
           _email,
           _password,
-          _address,
-          _city,
           _contact,
+          _city,
+          _address,
         ),
       );
     }

@@ -34,10 +34,10 @@ class UserSignUpRemoteDataSourceImplementation
         body: {
           "user_name": userName,
           "e_mail": eMail,
-          "password": password,
+          "mobile_no": mobileNo,
           "address": address,
           "city": city,
-          "mobile_no": mobileNo,
+          "password": password,
         },
       ).then((value) {
         return UserSignUpModel.fromJson(value);
