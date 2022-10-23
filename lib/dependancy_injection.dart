@@ -38,7 +38,9 @@ Future<void> init() async {
     ),
   );
   getItServiceLocator.registerLazySingleton<UserLoginRemoteDataSource>(
-    () => UserLoginRemoteDataSourceImplementation(),
+    () => UserLoginRemoteDataSourceImplementation(
+      getItServiceLocator(),
+    ),
   );
   getItServiceLocator.registerLazySingleton<UserLoginLocalDataSource>(
     () => UserLoginLocalDataSourceImplementation(
@@ -81,7 +83,9 @@ Future<void> init() async {
     ),
   );
   getItServiceLocator.registerLazySingleton<UserSignUpRemoteDataSource>(
-    () => UserSignUpRemoteDataSourceImplementation(),
+    () => UserSignUpRemoteDataSourceImplementation(
+      getItServiceLocator(),
+    ),
   );
   getItServiceLocator
       .registerLazySingleton<UserAccountVerificationRemoteDataSource>(

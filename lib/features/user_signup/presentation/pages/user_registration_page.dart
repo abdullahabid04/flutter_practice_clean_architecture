@@ -48,8 +48,6 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
             return UserRegisterForm();
           } else if (state is UserSignUpLoadingState) {
             return ShowProgress();
-            // } else if (state is UserSignUpAccountCreatedState) {
-            //   return ShowProgress();
           } else if (state is UserSignUpAccountNotCreatedState) {
             return UserRegisterForm();
           } else if (state is UserSignUpErrorState) {

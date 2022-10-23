@@ -1,3 +1,4 @@
+import 'package:practice_clean_architecture/userpreferances/local_user_data.dart';
 import 'package:practice_clean_architecture/utils/network_util.dart';
 
 import '../../../../constants/server_complete_urls.dart';
@@ -18,6 +19,9 @@ abstract class UserSignUpRemoteDataSource {
 class UserSignUpRemoteDataSourceImplementation
     implements UserSignUpRemoteDataSource {
   final NetworkUtil _networkUtil = NetworkUtil();
+  final LocalUserData localUserData;
+
+  UserSignUpRemoteDataSourceImplementation(this.localUserData);
 
   @override
   Future<UserSignUpModel> getUserSignUp(
@@ -39,7 +43,8 @@ class UserSignUpRemoteDataSourceImplementation
           "city": city,
           "password": password,
         },
-      ).then((value) {
+      ).then((value) async {
+        await localUserData.setUserSignUpData(UserSignUpModel.fromJson(value));
         return UserSignUpModel.fromJson(value);
       });
     } on ServerException catch (error) {

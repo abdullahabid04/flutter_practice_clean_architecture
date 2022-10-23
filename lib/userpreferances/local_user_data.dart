@@ -1,10 +1,13 @@
 import 'package:practice_clean_architecture/features/user_login/data/models/user_login_model.dart';
+import 'package:practice_clean_architecture/features/user_signup/data/model/user_signup_model.dart';
 import 'package:practice_clean_architecture/userpreferances/user_preferances.dart';
 
 abstract class LocalUserData {
   Map<String, dynamic> getUserData();
 
-  set setUserData(UserLoginModel userLoginModel);
+  Future<void> setUserLoginData(UserLoginModel userLoginModel);
+
+  Future<void> setUserSignUpData(UserSignUpModel userSignUpModel);
 
   bool get isAccountCreated;
 
@@ -15,16 +18,18 @@ abstract class LocalUserData {
 
 class LocalUserDataImplementation implements LocalUserData {
   @override
-  set setUserData(UserLoginModel userLoginModel) {
-    UserSharedPreferences.setUserId(int.parse(userLoginModel.id!.toString()));
-    UserSharedPreferences.setUserUniqueId(userLoginModel.userId!);
-    UserSharedPreferences.setUserName(userLoginModel.userName!);
-    UserSharedPreferences.setUserEmail(userLoginModel.eMail!);
-    UserSharedPreferences.setUserMobileNo(userLoginModel.mobileNo!);
-    UserSharedPreferences.setUserAccountPassword(userLoginModel.password!);
-    UserSharedPreferences.setUserCity(userLoginModel.city!);
-    UserSharedPreferences.setUserAddress(userLoginModel.address!);
-    UserSharedPreferences.setUserCreatedDate(userLoginModel.dateCreated!);
+  Future<void> setUserLoginData(UserLoginModel userLoginModel) async {
+    await UserSharedPreferences.setUserId(
+        int.parse(userLoginModel.id!.toString()));
+    await UserSharedPreferences.setUserUniqueId(userLoginModel.userId!);
+    await UserSharedPreferences.setUserName(userLoginModel.userName!);
+    await UserSharedPreferences.setUserEmail(userLoginModel.eMail!);
+    await UserSharedPreferences.setUserMobileNo(userLoginModel.mobileNo!);
+    await UserSharedPreferences.setUserAccountPassword(
+        userLoginModel.password!);
+    await UserSharedPreferences.setUserCity(userLoginModel.city!);
+    await UserSharedPreferences.setUserAddress(userLoginModel.address!);
+    await UserSharedPreferences.setUserCreatedDate(userLoginModel.dateCreated!);
   }
 
   @override
@@ -53,4 +58,21 @@ class LocalUserDataImplementation implements LocalUserData {
 
   @override
   bool get isLoggedIn => UserSharedPreferences.getLoggedIn() ?? false;
+
+  @override
+  Future<void> setUserSignUpData(UserSignUpModel userSignUpModel) async {
+    await UserSharedPreferences.setUserId(
+        int.parse(userSignUpModel.user!.id!.toString()));
+    await UserSharedPreferences.setUserUniqueId(userSignUpModel.user!.userId!);
+    await UserSharedPreferences.setUserName(userSignUpModel.user!.userName!);
+    await UserSharedPreferences.setUserEmail(userSignUpModel.user!.eMail!);
+    await UserSharedPreferences.setUserMobileNo(
+        userSignUpModel.user!.mobileNo!);
+    await UserSharedPreferences.setUserAccountPassword(
+        userSignUpModel.user!.password!);
+    await UserSharedPreferences.setUserCity(userSignUpModel.user!.city!);
+    await UserSharedPreferences.setUserAddress(userSignUpModel.user!.address!);
+    await UserSharedPreferences.setUserCreatedDate(
+        userSignUpModel.user!.dateCreated!);
+  }
 }

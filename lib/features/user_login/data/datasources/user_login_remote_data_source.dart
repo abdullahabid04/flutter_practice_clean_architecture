@@ -1,5 +1,6 @@
 import 'package:practice_clean_architecture/constants/server_complete_urls.dart';
 import 'package:practice_clean_architecture/core/errors/exceptions/exceptions.dart';
+import 'package:practice_clean_architecture/userpreferances/local_user_data.dart';
 import 'package:practice_clean_architecture/utils/network_util.dart';
 
 import '../models/user_login_model.dart';
@@ -11,6 +12,9 @@ abstract class UserLoginRemoteDataSource {
 class UserLoginRemoteDataSourceImplementation
     implements UserLoginRemoteDataSource {
   final NetworkUtil _networkUtil = NetworkUtil();
+  final LocalUserData localUserData;
+
+  UserLoginRemoteDataSourceImplementation(this.localUserData);
 
   @override
   Future<UserLoginModel> getUserLogin(String mobileNo, String password) async {
