@@ -1,6 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:practice_clean_architecture/core/network/network_info.dart';
+import 'package:practice_clean_architecture/features/home_screen/data/datasources/user_devices_remote_datasource.dart';
+import 'package:practice_clean_architecture/features/home_screen/data/repositories/user_devices_repository_implementation.dart';
+import 'package:practice_clean_architecture/features/home_screen/domain/repositories/user_devices_repository.dart';
+import 'package:practice_clean_architecture/features/home_screen/domain/usecases/get_all_user_devices.dart';
+import 'package:practice_clean_architecture/features/home_screen/presentation/bloc/bloc.dart';
 import 'package:practice_clean_architecture/features/user_login/data/datasources/user_login_local_data_source.dart';
 import 'package:practice_clean_architecture/features/user_login/data/datasources/user_login_remote_data_source.dart';
 import 'package:practice_clean_architecture/features/user_login/data/repositories/user_login_repository_implementation.dart';
@@ -19,6 +24,19 @@ import 'package:practice_clean_architecture/userpreferances/local_user_data.dart
 final getItServiceLocator = GetIt.instance;
 
 Future<void> init() async {
+  // Core Dependencies
+  getItServiceLocator.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImplementation(
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton<LocalUserData>(
+    () => LocalUserDataImplementation(),
+  );
+  // External Dependencies
+  getItServiceLocator.registerLazySingleton(
+    () => InternetConnectionChecker(),
+  );
   // User Login Dependencies
   getItServiceLocator.registerFactory(
     () => UserLoginBloc(
@@ -46,17 +64,6 @@ Future<void> init() async {
     () => UserLoginLocalDataSourceImplementation(
       localUserData: getItServiceLocator(),
     ),
-  );
-  getItServiceLocator.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImplementation(
-      getItServiceLocator(),
-    ),
-  );
-  getItServiceLocator.registerLazySingleton<LocalUserData>(
-    () => LocalUserDataImplementation(),
-  );
-  getItServiceLocator.registerLazySingleton(
-    () => InternetConnectionChecker(),
   );
   //  User SignUp Dependencies
   getItServiceLocator.registerFactory(
@@ -90,5 +97,25 @@ Future<void> init() async {
   getItServiceLocator
       .registerLazySingleton<UserAccountVerificationRemoteDataSource>(
     () => UserAccountVerificationRemoteDataSourceImplementation(),
+  );
+  // User Devices Dependencies
+  getItServiceLocator.registerFactory(
+    () => UserDevicesBloc(
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton(
+    () => GetAllUserDevices(
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton<UserDevicesRepository>(
+    () => UserDevicesRepositoryImplementation(
+      getItServiceLocator(),
+      getItServiceLocator(),
+    ),
+  );
+  getItServiceLocator.registerLazySingleton<UserDevicesRemoteDataSource>(
+    () => UserDevicesRemoteDataSourceImplementation(),
   );
 }
